@@ -11,7 +11,7 @@ AS              = msp430-elf-as
 all: blink.elf 
 
 #additional rules for files
-blink.elf: ${COMMON_OBJECTS} blinkMain.o stateMachines.o led.o wdInterruptHandler.o switches.o buzzer.o libTimer.a
+blink.elf: ${COMMON_OBJECTS} blinkMain.o stateMachines.o led.o wdInterruptHandler.o switches.o buzzer.o COPS.o libTimer.a
 	${CC} ${CFLAGS} ${LDFLAGS} -o $@ $^
 
 load: blink.elf
@@ -21,6 +21,8 @@ clean:
 	rm -f *.o *.elf
 
 led.o: led.c led.h
+
+COPS.o: stateMachines.h
 
 wdInterruptHandler.o: stateMachines.h
 

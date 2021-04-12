@@ -54,7 +54,7 @@ void state2(){
   led_update();
 }
 
-void state3(){
+void police(){
   char changed;
 
   switch(changed){
@@ -63,12 +63,14 @@ void state3(){
     green_on = 0;
     changed = 1;
     buzzer_set_period(500);
-    
+    break;
   case 1:
     changed = 0;
     red_on = 0;
     green_on = 1;
     buzzer_set_period(1000);
+    led_changed = 1;
+    led_update();
     break;
   }
   led_changed = 1;
@@ -163,7 +165,7 @@ void state_advance(){
     state2();
     break;
   case 3:
-    state3();
+    police();
     break;
   case 4:
     red_on = 0;
