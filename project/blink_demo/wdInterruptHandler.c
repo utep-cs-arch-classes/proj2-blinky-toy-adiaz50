@@ -5,7 +5,7 @@
 void
 __interrupt_vec(WDT_VECTOR) WDT(){
   static char blink_count = 0;
-  if(++blink_count == 90){
+  if(++blink_count == 50){
     char changed = 0;
     state_advance();
     /*    switch(switch_state_changed){
@@ -29,6 +29,14 @@ __interrupt_vec(WDT_VECTOR) WDT(){
     }
     */
   }
+}
+  void
+  __interrupt_vec(PORT2_VECTOR) Port_2(){
+    if(P2IFG & SWITCHES){
+      P2IFG &= ~SWITCHES;
+      switch_interrupt_handler();
+    }
+  }
 //void
 //__interrupt_vec(WDT_VECTOR) WDT(){	/* 250 interrupts/sec */
   // static char blink_count = 0;
@@ -37,4 +45,3 @@ __interrupt_vec(WDT_VECTOR) WDT(){
   //state_advance();
   //blink_count = 0;
   //}
-}

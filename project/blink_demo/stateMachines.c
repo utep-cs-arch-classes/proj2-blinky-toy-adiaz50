@@ -47,8 +47,9 @@ void state1()		/* alternate between toggling red & green */
 }
 
 void state2(){
-  buzzer_set_period(1000);
+  buzzer_set_period(0);
   toggle_red();
+  green_on = 0;
   led_changed = 1;
   led_update();
 }
@@ -62,11 +63,11 @@ void state3(){
     green_on = 0;
     changed = 1;
     buzzer_set_period(500);
-    break;
+    
   case 1:
+    changed = 0;
     red_on = 0;
     green_on = 1;
-    changed = 2;
     buzzer_set_period(1000);
     break;
   }
@@ -137,40 +138,23 @@ void dim_75(){
   led_changed = 1;
   led_update();
 }
+
 // still working on this
 void state4(){
   char changed;
   switch(changed){
   case 0:
     dim_25();
-    break;
+    changed = 1;
+  case 1:
+    dim_50();
+    changed = 0;
   }
 }
 //testing dim
 void state_advance(){
-  dim_25();
-  dim_50();
-  
   char changed;
-  
-  /*
-  if(s1){
-    state1();
-   
-  }
-  else if(s2){
-    state2();
-   
-  }
-  else if(s3){
-    state3();
-   
-  }
-  else if(s4){
-    state4(); 
-  }
-  */
-  // same thing 
+ 
   switch(state_changed){
   case 1:
     state1();
@@ -182,7 +166,10 @@ void state_advance(){
     state3();
     break;
   case 4:
+    red_on = 0;
     state4();
-    break; 
+    break;
   }
+  led_changed = 1;
+  led_update();
 }

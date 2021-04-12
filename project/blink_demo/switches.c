@@ -35,22 +35,16 @@ switch_interrupt_handler()
   s3 = (p2val & SW3) ? 0 : 1;
   s4 = (p2val & SW4) ? 0 : 1;
   
-  /* tried from here and didnt work either  
   if(s1){
     state_changed = 1;
-    state1();
   }
   else if(s2){
     state_changed = 2;
-    state2();
   }
   else if(s3){
     state_changed = 3;
-    state3();
   }
   else if(s4){
     state_changed = 4;
-     state4();
   }
-  */
 }
